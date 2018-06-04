@@ -1,6 +1,8 @@
 //
 // Created by puzankova 02.06.18
 //
+#include <math.h>
+#include <printf.h>
 #include "bitMap.h"
 
 void setBitByNumber(int *array, int bit, int position) {
@@ -12,6 +14,18 @@ void setBitByNumber(int *array, int bit, int position) {
 
     /* YOUR CODE */
 
+    if (position < 0) {
+        printf("Position < 0, error");
+        return;
+    }
+    if (bit > 1 || bit < 0) {
+        printf("Wrong bit, error");
+        return;
+    }
+    if (array[position] > 1 || array[position] < 0) {
+        printf("Wrong position, error");
+        return;
+    }
     array[position] = bit;
 }
 
@@ -20,7 +34,10 @@ int getBitByNumber(int *array, int position) {
 
     /* YOUR CODE */
 
-    return array[position];
+    if (array[position] > 1 || array[position] < 0) {
+        return -INFINITY;
+    }
+    return position >= 0 ? array[position] : -INFINITY;
 }
 
 void setBitByAddress(void *position, int bit) {
@@ -31,6 +48,18 @@ void setBitByAddress(void *position, int bit) {
 
     /* YOUR CODE */
 
+    if (position < 0) {
+        printf("Position < 0, error");
+        return;
+    }
+    if (bit > 1 || bit < 0) {
+        printf("Wrong bit, error");
+        return;
+    }
+    if (*(int *) position > 1 || *(int *) position < 0) {
+        printf("Wrong position, error");
+        return;
+    }
     *(int *) position = bit;
 }
 
@@ -39,5 +68,8 @@ int getBitByAddress(void *position) {
 
     /* YOUR CODE */
 
-    return *(int *) position;
+    if (*(int *) position > 1 || *(int *) position < 0) {
+        return -INFINITY;
+    }
+    return position >= 0 ? *(int *) position : -INFINITY;
 }
