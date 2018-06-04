@@ -3,37 +3,41 @@
 //
 #include "bitMap.h"
 
-void setBitByNumber(int* array, int bit, int position)
-{
-	// array - pointer to the begining of the array
-	// position - number of the bit in the 'array'
-	// bit - have to be equal to 0 or 1
-	//
-	// this function changes bit with number 'position' to the 'bit'
+void setBitByNumber(int *array, int bit, int position) {
+    // array - pointer to the begining of the array
+    // position - number of the bit in the 'array'
+    // bit - have to be equal to 0 or 1
+    //
+    // this function changes bit with number 'position' to the 'bit'
 
-	/* YOUR CODE */
+    /* YOUR CODE */
+
+    array[position] = bit;
 }
 
-int getBitByNumber(int* array, int position)
-{
-	// this function returns position's bit from the array 
+int getBitByNumber(int *array, int position) {
+    // this function returns position's bit from the array
 
-	/* YOUR CODE */
+    /* YOUR CODE */
+
+    return array[position];
 }
 
-void setBitByAddress(void* position, int bit)
-{
-	// position - pointer to the bit to change
-	// bit - have to be equal to 0 or 1
-	//
-	// this function changes bit by memory address to 'bit'
+void setBitByAddress(void *position, int bit) {
+    // position - pointer to the bit to change
+    // bit - have to be equal to 0 or 1
+    //
+    // this function changes bit by memory address to 'bit'
 
-	/* YOUR CODE */
+    /* YOUR CODE */
+
+    *(int *) position = bit;
 }
 
-int getBitByAddress(void* position)
-{
-	// this function returns first bit by memory address 'position'
-	
-	/* YOUR CODE */
+int getBitByAddress(void *position) {
+    // this function returns first bit by memory address 'position'
+
+    /* YOUR CODE */
+
+    return *(int *) position;
 }
