@@ -5,6 +5,8 @@
 #include <printf.h>
 #include "bitMap.h"
 
+#define BITE_SIZE 8
+
 void setBitByNumber(int *array, int bit, int position) {
     // array - pointer to the begining of the array
     // position - number of the bit in the 'array'
@@ -14,19 +16,16 @@ void setBitByNumber(int *array, int bit, int position) {
 
     /* YOUR CODE */
 
-    if (position < 0) {
-        printf("Position < 0, error");
-        return;
+    int bitsInt = sizeof(int) * BITE_SIZE;
+    int shiftRight = position % bitsInt;
+    int elem = position / bitsInt;
+    unsigned int mask = (unsigned int) (1 << (bitsInt - 1));
+    mask >>= shiftRight;
+    if (bit) {
+        array[elem] |= mask;
+    } else {
+        array[elem] &= ~mask;
     }
-    if (bit > 1 || bit < 0) {
-        printf("Wrong bit, error");
-        return;
-    }
-    if (array[position] > 1 || array[position] < 0) {
-        printf("Wrong position, error");
-        return;
-    }
-    array[position] = bit;
 }
 
 int getBitByNumber(int *array, int position) {
@@ -34,10 +33,13 @@ int getBitByNumber(int *array, int position) {
 
     /* YOUR CODE */
 
-    if (array[position] > 1 || array[position] < 0) {
-        return -INFINITY;
-    }
-    return position >= 0 ? array[position] : -INFINITY;
+    int bitsInt = sizeof(int) * BITE_SIZE;
+    int shiftRight = position % bitsInt;
+    int elem = position / bitsInt;
+    unsigned int mask = (unsigned int) (1 << (bitsInt - 1));
+    mask >>= shiftRight;
+    mask &= array[elem];
+    return mask == 0 ? 0 : 1;
 }
 
 void setBitByAddress(void *position, int bit) {
@@ -48,19 +50,13 @@ void setBitByAddress(void *position, int bit) {
 
     /* YOUR CODE */
 
-    if (position < 0) {
-        printf("Position < 0, error");
-        return;
+    int bitsInt = sizeof(int) * BITE_SIZE;
+    unsigned int mask = (unsigned int) (1 << (bitsInt - 1));
+    if (bit) {
+        *(int *) position |= mask;
+    } else {
+        *(int *) position &= ~mask;
     }
-    if (bit > 1 || bit < 0) {
-        printf("Wrong bit, error");
-        return;
-    }
-    if (*(int *) position > 1 || *(int *) position < 0) {
-        printf("Wrong position, error");
-        return;
-    }
-    *(int *) position = bit;
 }
 
 int getBitByAddress(void *position) {
@@ -68,8 +64,8 @@ int getBitByAddress(void *position) {
 
     /* YOUR CODE */
 
-    if (*(int *) position > 1 || *(int *) position < 0) {
-        return -INFINITY;
-    }
-    return position >= 0 ? *(int *) position : -INFINITY;
+    int bitsInt = sizeof(int) * BITE_SIZE;
+    unsigned int mask = (unsigned int) (1 << (bitsInt - 1));
+    mask &= *(int *) position;
+    return mask == 0 ? 0 : 1;
 }
